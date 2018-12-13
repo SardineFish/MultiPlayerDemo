@@ -75,11 +75,21 @@ public static class MathUtility
         return quaternion;
     }
 
+    /// <summary>
+    /// Get the angle in degree of vector
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
     public static float ToAng(float y, float x)
     {
         return Mathf.Atan2(y, x) * Mathf.Rad2Deg;
     }
 
+    /// <summary>
+    /// Get the angle in degree of vector
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
     public static float ToAng(Vector2 v)
     {
         return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
