@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using Cytar.Serialization;
 using System.IO;
 
-namespace NetworkTestGameServer
+namespace NetworkTestGameServer.Client
 {
     public class TCPClient : NetworkClient
     {

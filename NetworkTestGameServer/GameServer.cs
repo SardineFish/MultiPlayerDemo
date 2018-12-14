@@ -5,6 +5,7 @@ using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 using System.Linq;
+using NetworkTestGameServer.Client;
 
 namespace NetworkTestGameServer
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NetworkTestGameServer
+namespace NetworkTestGameServer.Client
 {
     public struct Vector2
     {
