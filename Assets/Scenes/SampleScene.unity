@@ -409,6 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1002869416}
   - component: {fileID: 1002869415}
+  - component: {fileID: 1002869417}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -479,3 +480,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1002869417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1002869414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1987a6d35c54cc478ba342e07537e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Host: localhost
+  Port: 7795
+  Name: ThePlayer
