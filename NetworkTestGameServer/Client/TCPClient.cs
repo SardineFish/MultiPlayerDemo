@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Net.Sockets;
 using System.Net;
-using System.IO;
+using System.Net.Sockets;
 using Cytar.Serialization;
+using System.IO;
 
 namespace NetworkTestGameServer
 {
-    public class TCPSession:NetworkSession
+    public class TCPClient : NetworkClient
     {
         TcpClient Client;
         byte[] buffer = null;
         int rest = 0;
 
-        public TCPSession(TcpClient client)
+        public TCPClient()
         {
-            this.Client = client;
+            Client = new TcpClient();
+        }
+
+        public override void Connect(string host, int port)
+        {
+            Client.Connect(host, port);
         }
 
         public override T GetPackage<T>()
@@ -26,7 +31,7 @@ namespace NetworkTestGameServer
             {
                 if (Client.Available < 4)
                     return null;
-                rest =  new BinaryReader(Client.GetStream()).ReadInt32();
+                rest = new BinaryReader(Client.GetStream()).ReadInt32();
                 buffer = new byte[rest];
             }
 

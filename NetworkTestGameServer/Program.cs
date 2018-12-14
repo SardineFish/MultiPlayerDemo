@@ -8,7 +8,10 @@ namespace NetworkTestGameServer
     {
         public static void Main()
         {
-            Console.WriteLine("Hello World!");
+            ServerLog.SetLogFile("./server.log");
+            var server = new TCPServer("0.0.0.0", 7795);
+            GameServer gameServer = new GameServer(server);
+            gameServer.Start();
         }
     }
 }

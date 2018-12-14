@@ -6,6 +6,7 @@ namespace NetworkTestGameServer
 {
     public abstract class NetworkServer
     {
+        public abstract void Start();
         public abstract NetworkSession Listen();
     }
 }

@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkTestGameServer", "NetworkTestGameServer\NetworkTestGameServer.csproj", "{24E3E27C-EB7C-4E60-A349-FFE193000015}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cytar", "Cytar\Cytar\Cytar.csproj", "{2B33B2E2-24B6-4EB6-9FD0-5AE0B529AB28}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyRoute", "Cytar\EasyRoute\EasyRoute\EasyRoute.csproj", "{3EBA91F0-2DBD-47E7-9D0E-0746C383F587}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{24E3E27C-EB7C-4E60-A349-FFE193000015}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24E3E27C-EB7C-4E60-A349-FFE193000015}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24E3E27C-EB7C-4E60-A349-FFE193000015}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B33B2E2-24B6-4EB6-9FD0-5AE0B529AB28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B33B2E2-24B6-4EB6-9FD0-5AE0B529AB28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B33B2E2-24B6-4EB6-9FD0-5AE0B529AB28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B33B2E2-24B6-4EB6-9FD0-5AE0B529AB28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EBA91F0-2DBD-47E7-9D0E-0746C383F587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EBA91F0-2DBD-47E7-9D0E-0746C383F587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EBA91F0-2DBD-47E7-9D0E-0746C383F587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EBA91F0-2DBD-47E7-9D0E-0746C383F587}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,4 +7,8 @@
     <StartupObject />
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cytar\Cytar\Cytar.csproj" />
+  </ItemGroup>
+
 </Project>

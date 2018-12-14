@@ -28,6 +28,7 @@ namespace NetworkTestGameServer
         {
             GameThread = new Thread(GameLoop);
             GameThread.Start();
+            Server.Start();
             while (true)
             {
                 var session = Server.Listen();
@@ -35,6 +36,7 @@ namespace NetworkTestGameServer
                 lock (Players)
                 {
                     Players.Add(player.ID, player);
+                    ServerLog.Log($"Player {player.ID} joined.");
                 }
             }
 
