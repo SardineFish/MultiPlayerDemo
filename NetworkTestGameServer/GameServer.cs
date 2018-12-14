@@ -39,6 +39,7 @@ namespace NetworkTestGameServer
                 {
                     HandShakeList.Add(player);
                 }
+                player.GameServer = this;
                 ServerLog.Log($"Player {player.ID} joined.");
                 /*
                 lock (Players)
