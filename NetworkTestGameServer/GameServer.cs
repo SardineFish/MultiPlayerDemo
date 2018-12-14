@@ -11,7 +11,7 @@ namespace NetworkTestGameServer
 {
     public class GameServer
     {
-        public const int SyncDuration = 100;
+        public const int SyncDuration = 16;
         public const int Frame = 60;
         public double Time = 0;
         public int Tick = 0;
