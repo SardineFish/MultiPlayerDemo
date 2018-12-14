@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Cytar;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NetworkTestGameServer.Client
+namespace MultiPlayer
 {
     public struct Vector2
     {
+        [SerializableProperty(0)]
         public float x;
+        [SerializableProperty(1)]
         public float y;
         public Vector2(float x, float y)
         {

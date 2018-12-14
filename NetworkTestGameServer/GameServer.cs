@@ -5,7 +5,7 @@ using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 using System.Linq;
-using NetworkTestGameServer.Client;
+using MultiPlayer;
 
 namespace NetworkTestGameServer
 {
@@ -16,6 +16,7 @@ namespace NetworkTestGameServer
         public double Time = 0;
         public int Tick = 0;
         public Dictionary<Guid, PlayerSession> Players;
+        public List<PlayerSession> HandShakeList = new List<PlayerSession>();
         Thread GameThread;
         NetworkServer Server;
         private int syncCount = 0;
@@ -34,11 +35,17 @@ namespace NetworkTestGameServer
             {
                 var session = Server.Listen();
                 var player = new PlayerSession(session);
+                lock (HandShakeList)
+                {
+                    HandShakeList.Add(player);
+                }
+                ServerLog.Log($"Player {player.ID} joined.");
+                /*
                 lock (Players)
                 {
                     Players.Add(player.ID, player);
                     ServerLog.Log($"Player {player.ID} joined.");
-                }
+                }*/
             }
 
         }
@@ -65,6 +72,40 @@ namespace NetworkTestGameServer
                         }
                     }
                 }
+
+                // Remove disconnected players
+                lock (Players)
+                {
+                    var removeList = new List<Guid>();
+                    foreach(var pair in Players)
+                    {
+                        if (!pair.Value.Online)
+                        {
+                            removeList.Add(pair.Key);
+                            ServerLog.Log($"Player \"{pair.Value.Name}\" disconnected. ");
+                        }
+                    }
+                    removeList.ForEach(key => Players.Remove(key));
+                }
+
+                // Handle handshake
+                lock (HandShakeList)
+                {
+                    for(var i = 0; i < HandShakeList.Count; i++)
+                    {
+                        var player = HandShakeList[i];
+                        if (player.TryHandShake())
+                        {
+                            lock (Players)
+                            {
+                                Players.Add(player.ID, player);
+                            }
+                            HandShakeList.RemoveAt(i--);
+                            ServerLog.Log($"Player \"{player.Name}\" joined.");
+                        }
+                    }
+                }
+
                 Thread.Sleep(TimeSpan.FromSeconds(1.0 / Frame));
                 Time += 1.0 / Frame;
                 Tick += 1;

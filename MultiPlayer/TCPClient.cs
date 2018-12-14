@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using Cytar.Serialization;
 using System.IO;
 
-namespace NetworkTestGameServer.Client
+namespace MultiPlayer
 {
     public class TCPClient : NetworkClient
     {
@@ -24,7 +24,7 @@ namespace NetworkTestGameServer.Client
             Client.Connect(host, port);
         }
 
-        public override T GetPackage<T>()
+        public override byte[] GetData()
         {
             // Get header
             if (rest == 0)
@@ -35,20 +35,34 @@ namespace NetworkTestGameServer.Client
                 buffer = new byte[rest];
             }
 
-            rest -= Client.GetStream().Read(buffer, buffer.Length - rest, Client.Available);
+            rest -= Client.GetStream().Read(buffer, buffer.Length - rest, Math.Min(rest, Client.Available));
             if (rest > 0)
                 return null;
+            return buffer;
+        }
+
+        public override T GetPackage<T>()
+        {
+            var data = GetData();
+            if (data == null)
+                return null;
             return CytarDeserialize.Deserialize<T>(buffer);
+        }
+
+        public override void SendData(byte[] data)
+        {
+            var bw = new BinaryWriter(Client.GetStream());
+            bw.Write(data.Length);
+            bw.Write(data);
         }
 
         public override void SendPackage<T>(T package)
         {
             var data = CytarSerialize.Serialize(package);
-            using (var bw = new BinaryWriter(Client.GetStream()))
-            {
-                bw.Write(data.Length);
-                bw.Write(data);
-            }
+
+            var bw = new BinaryWriter(Client.GetStream());
+            bw.Write(data.Length);
+            bw.Write(data);
         }
     }
 }

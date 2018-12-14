@@ -10,6 +10,8 @@ namespace NetworkTestGameServer
 {
     public class TCPSession:NetworkSession
     {
+        bool connected = true;
+        public override bool Connected => connected;
         TcpClient Client;
         byte[] buffer = null;
         int rest = 0;
@@ -21,28 +23,41 @@ namespace NetworkTestGameServer
 
         public override T GetPackage<T>()
         {
-            // Get header
-            if (rest == 0)
+            try
             {
-                if (Client.Available < 4)
-                    return null;
-                rest =  new BinaryReader(Client.GetStream()).ReadInt32();
-                buffer = new byte[rest];
-            }
+                // Get header
+                if (rest == 0)
+                {
+                    if (Client.Available < 4)
+                        return null;
+                    rest = new BinaryReader(Client.GetStream()).ReadInt32();
+                    buffer = new byte[rest];
+                }
 
-            rest -= Client.GetStream().Read(buffer, buffer.Length - rest, Client.Available);
-            if (rest > 0)
-                return null;
-            return CytarDeserialize.Deserialize<T>(buffer);
+                rest -= Client.GetStream().Read(buffer, buffer.Length - rest, Math.Min(rest, Client.Available));
+                if (rest > 0)
+                    return null;
+                return CytarDeserialize.Deserialize<T>(buffer);
+            }
+            catch(Exception ex)
+            {
+                connected = false;
+            }
+            return null;
         }
 
         public override void SendPackage<T>(T package)
         {
-            var data = CytarSerialize.Serialize(package);
-            using (var bw = new BinaryWriter(Client.GetStream()))
+            try
             {
+                var data = CytarSerialize.Serialize(package);
+                var bw = new BinaryWriter(Client.GetStream());
                 bw.Write(data.Length);
                 bw.Write(data);
+            }
+            catch(Exception ex)
+            {
+                connected = false;
             }
         }
     }

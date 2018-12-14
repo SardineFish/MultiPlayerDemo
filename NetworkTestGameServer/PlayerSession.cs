@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using NetworkTestGameServer.Client;
+using MultiPlayer;
 
 namespace NetworkTestGameServer
 {
     public class PlayerSession
     {
         public Guid ID;
+        public string Name;
         public NetworkSession NetworkSession;
+        public bool Ready = false;
+        public bool Online => NetworkSession.Connected;
+
         public PlayerSession(NetworkSession networkSession)
         {
             NetworkSession = networkSession;
@@ -28,7 +32,17 @@ namespace NetworkTestGameServer
         }
         public void Sync(Sync syncState)
         {
-
+            NetworkSession.SendPackage(syncState);
+        }
+        public bool TryHandShake()
+        {
+            var handshake = NetworkSession.GetPackage<HandShake>();
+            if (handshake == null)
+                return false;
+            Name = handshake.Name;
+            handshake.ID = ID.ToString();
+            NetworkSession.SendPackage(handshake);
+            return true;
         }
     }
 }
