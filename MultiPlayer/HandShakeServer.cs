@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using Cytar;
+
 namespace MultiPlayer
 {
-    [Serializable]
-    public class HandShake
+    public class HandShakeServer
     {
         [SerializableProperty(0)]
-        public string Name;
-        [SerializableProperty(1)]
         public string ID;
+        [SerializableProperty(1)]
+        public string Name;
+        [SerializableProperty(2)]
+        public PlayerData[] Players;
     }
 }

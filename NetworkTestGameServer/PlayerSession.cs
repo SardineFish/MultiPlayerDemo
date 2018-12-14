@@ -9,15 +9,18 @@ namespace NetworkTestGameServer
     public class PlayerSession
     {
         public Guid ID;
+        public Guid MirrorID;
         public string Name;
         public NetworkSession NetworkSession;
         public bool Ready = false;
         public bool Online => NetworkSession.Connected;
+        public GameServer GameServer;
 
         public PlayerSession(NetworkSession networkSession)
         {
             NetworkSession = networkSession;
             ID = Guid.NewGuid();
+            MirrorID = Guid.NewGuid();
         }
         public PlayerState GetState()
         {
@@ -36,12 +39,22 @@ namespace NetworkTestGameServer
         }
         public bool TryHandShake()
         {
-            var handshake = NetworkSession.GetPackage<HandShake>();
+            var handshake = NetworkSession.GetPackage<HandShakeClient>();
             if (handshake == null)
                 return false;
             Name = handshake.Name;
             handshake.ID = ID.ToString();
-            NetworkSession.SendPackage(handshake);
+            NetworkSession.SendPackage(new HandShakeServer()
+            {
+                ID = ID.ToString(),
+                Name = Name,
+                Players = GameServer.Players.Values.Select(player => new PlayerData()
+                {
+                    ID = player.ID.ToString(),
+                    Name = player.Name
+                })
+                .ToArray()
+            });
             return true;
         }
     }

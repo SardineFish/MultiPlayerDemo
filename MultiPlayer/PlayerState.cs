@@ -12,11 +12,11 @@ namespace MultiPlayer
         [SerializableProperty(1)]
         public int Tick;
         [SerializableProperty(2)]
-        public Vector2 Position;
+        public Vec2 Position;
         [SerializableProperty(3)]
-        public Vector2 Movement;
+        public Vec2 Movement;
         [SerializableProperty(4)]
-        public Vector2 Aim;
+        public Vec2 Aim;
         [SerializableProperty(5)]
         public bool Fire;
     }

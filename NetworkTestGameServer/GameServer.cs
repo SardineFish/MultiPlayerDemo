@@ -64,6 +64,19 @@ namespace NetworkTestGameServer
                             syncStates = Players.Values
                         .Select(player => player.GetState())
                         .Where(state => state != null)
+                        .SelectMany(state => new PlayerState[]
+                            {
+                                state,
+                                new PlayerState()
+                                {
+                                    ID=Players[Guid.Parse(state.ID)].MirrorID.ToString(),
+                                    Aim=-state.Aim,
+                                    Fire = state.Fire,
+                                    Movement=-state.Movement,
+                                    Position=-state.Position,
+                                    Tick = Tick
+                                }
+                            })
                         .ToArray()
                         };
                         foreach (var player in Players.Values)
