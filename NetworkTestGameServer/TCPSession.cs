@@ -54,6 +54,8 @@ namespace NetworkTestGameServer
                 var bw = new BinaryWriter(Client.GetStream());
                 bw.Write(data.Length);
                 bw.Write(data);
+                Client.GetStream().FlushAsync();
+                
             }
             catch(Exception ex)
             {

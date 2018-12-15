@@ -63,6 +63,7 @@ namespace MultiPlayer
             var bw = new BinaryWriter(Client.GetStream());
             bw.Write(data.Length);
             bw.Write(data);
+            Client.GetStream().Flush();
         }
     }
 }
