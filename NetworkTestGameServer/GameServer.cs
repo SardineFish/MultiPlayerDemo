@@ -68,7 +68,9 @@ namespace NetworkTestGameServer
                         .SelectMany(state => new PlayerState[]
                             {
                                 state,
-                                new PlayerState()
+                                Players.Count>1
+                                ? null
+                                :new PlayerState()
                                 {
                                     ID=Players[Guid.Parse(state.ID)].MirrorID.ToString(),
                                     Aim=-state.Aim,

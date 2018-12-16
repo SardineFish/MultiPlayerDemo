@@ -12,7 +12,7 @@ namespace ClientTest
         static void Main(string[] args)
         {
             var client = new TCPClient();
-            client.Connect("server.sardinefish.com", 5325);
+            client.Connect("server-jp.sardinefish.com", 5325);
             var lastReceive = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
             while (true)
             {
