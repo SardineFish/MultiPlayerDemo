@@ -190,48 +190,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &647907653
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4405534272167834, guid: 99537a3c48f280745b9d5e6ae407382c, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 3.6418
-      objectReference: {fileID: 0}
-    - target: {fileID: 4405534272167834, guid: 99537a3c48f280745b9d5e6ae407382c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4405534272167834, guid: 99537a3c48f280745b9d5e6ae407382c, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4405534272167834, guid: 99537a3c48f280745b9d5e6ae407382c, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4405534272167834, guid: 99537a3c48f280745b9d5e6ae407382c, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4405534272167834, guid: 99537a3c48f280745b9d5e6ae407382c, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4405534272167834, guid: 99537a3c48f280745b9d5e6ae407382c, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4405534272167834, guid: 99537a3c48f280745b9d5e6ae407382c, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 99537a3c48f280745b9d5e6ae407382c, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1002869414
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +200,7 @@ GameObject:
   - component: {fileID: 1002869416}
   - component: {fileID: 1002869415}
   - component: {fileID: 1002869417}
+  - component: {fileID: 1002869418}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -323,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1987a6d35c54cc478ba342e07537e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Host: localhost
+  Host: server-jp.sardinefish.com
   Port: 7795
   Name: ThePlayer
   ID: 
@@ -331,3 +290,16 @@ MonoBehaviour:
     type: 2}
   NetworkPlayerPrefab: {fileID: 1084474517575042, guid: b767a85ec680b9d4b87e9806fcc32182,
     type: 2}
+  SyncDuration: 0.0166666
+--- !u!114 &1002869418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1002869414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c2753027ea09b749be59c15ec7ac009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tick: 0

@@ -35,12 +35,23 @@ namespace MultiPlayer
             var data = Packages.Dequeue();
             return CytarDeserialize.Deserialize<T>(data);
         }
+        public List<T> GetPackages<T>() where T : class
+        {
+            var packages = new List<T>();
+            ReceiveAll();
+            while (Packages.Count > 0)
+            {
+                packages.Add(CytarDeserialize.Deserialize<T>(Packages.Dequeue()));
+            }
+            return packages;
+        }
         void ReceiveAll()
         {
             for(var data = Client.GetData(); data != null; data = Client.GetData())
             {
                 Packages.Enqueue(data);
             }
+            //UnityEngine.Debug.Log($"{UnityEngine.Time.frameCount}: Got package, Query:{Packages.Count}");
         }
         public void SendPackage<T>(T package) where T : class
         {

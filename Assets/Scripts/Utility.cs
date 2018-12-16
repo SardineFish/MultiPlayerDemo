@@ -164,4 +164,14 @@ public static class Utility
         yield return new WaitForSeconds(seconds);
         callback?.Invoke();
     }
+    public static TSelect Max<T,TCompare,TSelect>(this IEnumerable<T> ts, Func<T,TCompare> compare,Func<T, TSelect> select) where TCompare : IComparable 
+    {
+        var max = ts.Max(compare);
+        return select(ts.Where(t => compare(t).CompareTo(max) == 0).FirstOrDefault());
+    }
+    public static T MaxItem<T,TCompare>(this IEnumerable<T> ts, Func<T, TCompare> compare) where TCompare:IComparable
+    {
+        var max = ts.Max(compare);
+        return ts.Where(t => compare(t).CompareTo(max) == 0).FirstOrDefault();
+    }
 }
