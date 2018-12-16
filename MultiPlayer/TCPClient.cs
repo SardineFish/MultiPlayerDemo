@@ -50,7 +50,8 @@ namespace MultiPlayer
                 }*/
                 buffer = new byte[rest];
             }
-            
+            if (Client.Available <= 0)
+                return null;
             rest -= Client.GetStream().Read(buffer, buffer.Length - rest, Math.Min(Client.Available, rest));
             if (rest > 0)
                 return null;
