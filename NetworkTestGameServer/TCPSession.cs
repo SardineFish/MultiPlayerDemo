@@ -38,10 +38,15 @@ namespace NetworkTestGameServer
         {
             try
             {
-                var bw = new BinaryWriter(Client.GetStream());
-                bw.Write(data.Length);
-                bw.Write(data);
-                Client.GetStream().FlushAsync();
+                var buffer = new byte[data.Length + 4];
+                using (var ms = new MemoryStream(buffer))
+                using (var bw = new BinaryWriter(ms))
+                {
+                    bw.Write(data.Length);
+                    bw.Write(data);
+                }
+                Client.GetStream().Write(buffer, 0, buffer.Length);
+                Client.GetStream().Flush();
 
             }
             catch (Exception ex)

@@ -12,14 +12,20 @@ namespace ClientTest
         static void Main(string[] args)
         {
             var client = new TCPClient();
-            client.Connect("localhost", 5325);
+            client.Connect("server.sardinefish.com", 5325);
             var lastReceive = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
             while (true)
             {
-                var watcher = Stopwatch.StartNew();
-                for(var data = client.GetData();data!=null;  data = client.GetData())
+                while (true)
                 {
+                    var watcher = Stopwatch.StartNew();
+                    Console.WriteLine($"Available {client.Client.Available}");
+                    var data = client.GetData();
                     watcher.Stop();
+                    
+                    Console.WriteLine($"Receive {watcher.Elapsed.TotalMilliseconds}ms");
+                    if (data == null)
+                        break;
                     var timestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
 
                     using (var ms = new MemoryStream(data))

@@ -10,7 +10,7 @@ namespace MultiPlayer
 {
     public class TCPClient : NetworkClient
     {
-        TcpClient Client;
+        public TcpClient Client;
         byte[] buffer = null;
         int rest = 0;
         int headerRest = 0;
@@ -32,20 +32,24 @@ namespace MultiPlayer
         public override byte[] GetData()
         {
             // Get header
-            if (headerRest>0)
+            if (rest == 0)
             {
-                headerRest -= Client.GetStream().Read(buffer, buffer.Length - headerRest, Math.Min(Client.Available, headerRest));
-                //headerRest -= Socket.Receive(buffer, buffer.Length - headerRest, headerRest, SocketFlags.None);
-                if (headerRest > 0)
+                if (Client.Available <= 4)
                     return null;
+                buffer = new byte[4];
+                Client.GetStream().Read(buffer, 0, 4);
+                rest = buffer[0] << 0 |
+                        buffer[1] << 8 |
+                        buffer[2] << 16 |
+                        buffer[3] << 24;
+                /*
                 using (var ms = new MemoryStream(buffer))
                 using (var br = new BinaryReader(ms))
                 {
                     rest = br.ReadInt32();
-                }
+                }*/
                 buffer = new byte[rest];
             }
-
             
             rest -= Client.GetStream().Read(buffer, buffer.Length - rest, Math.Min(Client.Available, rest));
             if (rest > 0)
