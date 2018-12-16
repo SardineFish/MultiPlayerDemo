@@ -17,6 +17,7 @@ namespace NetworkTestGameServer
         public int Tick = 0;
         public Dictionary<Guid, PlayerSession> Players;
         public List<PlayerSession> HandShakeList = new List<PlayerSession>();
+        public bool Mirror;
         Thread GameThread;
         NetworkServer Server;
         private int syncCount = 0;
@@ -68,7 +69,7 @@ namespace NetworkTestGameServer
                         .SelectMany(state => new PlayerState[]
                             {
                                 state,
-                                Players.Count>1
+                                Mirror
                                 ? null
                                 :new PlayerState()
                                 {
