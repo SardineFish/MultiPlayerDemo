@@ -23,6 +23,35 @@ namespace NetworkTestGameServer
 
         public override T GetPackage<T>()
         {
+            var data = ReceiveData();
+            if (data != null)
+                return CytarDeserialize.Deserialize<T>(data);
+            return null;
+        }
+
+        public override void SendPackage<T>(T package)
+        {
+            SendData(CytarSerialize.Serialize(package));
+        }
+
+        public override void SendData(byte[] data)
+        {
+            try
+            {
+                var bw = new BinaryWriter(Client.GetStream());
+                bw.Write(data.Length);
+                bw.Write(data);
+                Client.GetStream().FlushAsync();
+
+            }
+            catch (Exception ex)
+            {
+                connected = false;
+            }
+        }
+
+        public override byte[] ReceiveData()
+        {
             try
             {
                 // Get header
@@ -37,30 +66,13 @@ namespace NetworkTestGameServer
                 rest -= Client.GetStream().Read(buffer, buffer.Length - rest, Math.Min(rest, Client.Available));
                 if (rest > 0)
                     return null;
-                return CytarDeserialize.Deserialize<T>(buffer);
+                return buffer;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 connected = false;
             }
             return null;
-        }
-
-        public override void SendPackage<T>(T package)
-        {
-            try
-            {
-                var data = CytarSerialize.Serialize(package);
-                var bw = new BinaryWriter(Client.GetStream());
-                bw.Write(data.Length);
-                bw.Write(data);
-                Client.GetStream().FlushAsync();
-                
-            }
-            catch(Exception ex)
-            {
-                connected = false;
-            }
         }
     }
 }

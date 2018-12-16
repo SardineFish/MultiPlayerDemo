@@ -13,32 +13,47 @@ namespace MultiPlayer
         TcpClient Client;
         byte[] buffer = null;
         int rest = 0;
+        int headerRest = 0;
 
         public TCPClient()
         {
             Client = new TcpClient();
+            buffer = new byte[4];
+            headerRest = 4;
         }
 
         public override void Connect(string host, int port)
         {
             Client.Connect(host, port);
+            //Socket.Connect(host, port);
+            //Socket.Blocking = false;
         }
 
         public override byte[] GetData()
         {
             // Get header
-            if (rest == 0)
+            if (headerRest>0)
             {
-                if (Client.Available < 4)
+                headerRest -= Client.GetStream().Read(buffer, buffer.Length - headerRest, Math.Min(Client.Available, headerRest));
+                //headerRest -= Socket.Receive(buffer, buffer.Length - headerRest, headerRest, SocketFlags.None);
+                if (headerRest > 0)
                     return null;
-                rest = new BinaryReader(Client.GetStream()).ReadInt32();
+                using (var ms = new MemoryStream(buffer))
+                using (var br = new BinaryReader(ms))
+                {
+                    rest = br.ReadInt32();
+                }
                 buffer = new byte[rest];
             }
 
-            rest -= Client.GetStream().Read(buffer, buffer.Length - rest, Math.Min(rest, Client.Available));
+            
+            rest -= Client.GetStream().Read(buffer, buffer.Length - rest, Math.Min(Client.Available, rest));
             if (rest > 0)
                 return null;
-            return buffer;
+            var bufferTmp = buffer;
+            headerRest = 4;
+            buffer = new byte[4];
+            return bufferTmp;
         }
 
         public override T GetPackage<T>()
@@ -51,19 +66,21 @@ namespace MultiPlayer
 
         public override void SendData(byte[] data)
         {
-            var bw = new BinaryWriter(Client.GetStream());
-            bw.Write(data.Length);
-            bw.Write(data);
+            var buffer = new byte[data.Length + 4];
+            using (var ms = new MemoryStream(buffer))
+            using (var bw = new BinaryWriter(ms))
+            {
+                bw.Write(data.Length);
+                bw.Write(data);
+            }
+            Client.GetStream().Write(buffer, 0, buffer.Length);
+            
         }
 
         public override void SendPackage<T>(T package)
         {
             var data = CytarSerialize.Serialize(package);
-
-            var bw = new BinaryWriter(Client.GetStream());
-            bw.Write(data.Length);
-            bw.Write(data);
-            Client.GetStream().Flush();
+            SendData(data);
         }
     }
 }

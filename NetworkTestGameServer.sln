@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkTestGameServer", "NetworkTestGameServer\NetworkTestGameServer.csproj", "{24E3E27C-EB7C-4E60-A349-FFE193000015}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkTestGameServer", "NetworkTestGameServer\NetworkTestGameServer.csproj", "{24E3E27C-EB7C-4E60-A349-FFE193000015}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cytar", "Cytar\Cytar\Cytar.csproj", "{2B33B2E2-24B6-4EB6-9FD0-5AE0B529AB28}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyRoute", "Cytar\EasyRoute\EasyRoute\EasyRoute.csproj", "{3EBA91F0-2DBD-47E7-9D0E-0746C383F587}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPlayer", "MultiPlayer\MultiPlayer.csproj", "{C95EAD19-E1A4-485E-9A21-57CB20051D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiPlayer", "MultiPlayer\MultiPlayer.csproj", "{C95EAD19-E1A4-485E-9A21-57CB20051D05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTest", "ServerTest\ServerTest.csproj", "{FA4C21C3-6545-4118-8717-5E0CC94570B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientTest", "ClientTest\ClientTest.csproj", "{BF13EB97-BD1D-4EF3-88A4-F36FD6038A7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{C95EAD19-E1A4-485E-9A21-57CB20051D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C95EAD19-E1A4-485E-9A21-57CB20051D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C95EAD19-E1A4-485E-9A21-57CB20051D05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA4C21C3-6545-4118-8717-5E0CC94570B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA4C21C3-6545-4118-8717-5E0CC94570B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA4C21C3-6545-4118-8717-5E0CC94570B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA4C21C3-6545-4118-8717-5E0CC94570B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF13EB97-BD1D-4EF3-88A4-F36FD6038A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF13EB97-BD1D-4EF3-88A4-F36FD6038A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF13EB97-BD1D-4EF3-88A4-F36FD6038A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF13EB97-BD1D-4EF3-88A4-F36FD6038A7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
