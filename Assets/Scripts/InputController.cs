@@ -7,8 +7,11 @@ public class InputController : PlayerController
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(Input.mousePosition);
         var movement = InputManager.Instance.Movement;
         var aim = InputManager.Instance.Aim;
+        if (InputManager.Instance.ControlByMouse)
+            aim = InputManager.Instance.MousePosition - transform.position.ToVector2();
         PlayerState = new MultiPlayer.PlayerState()
         {
             Tick = GameSystem.Instance.Tick,
