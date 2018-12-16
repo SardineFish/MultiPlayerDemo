@@ -19,6 +19,7 @@ namespace NetworkTestGameServer
         public TCPSession(TcpClient client)
         {
             this.Client = client;
+            client.NoDelay = true;
         }
 
         public override T GetPackage<T>()
