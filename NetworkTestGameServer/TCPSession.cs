@@ -38,6 +38,10 @@ namespace NetworkTestGameServer
         {
             try
             {
+                var bw = new BinaryWriter(Client.GetStream());
+                bw.Write(data.Length);
+                bw.Write(data);
+                /*
                 var buffer = new byte[data.Length + 4];
                 using (var ms = new MemoryStream(buffer))
                 using (var bw = new BinaryWriter(ms))
@@ -45,7 +49,7 @@ namespace NetworkTestGameServer
                     bw.Write(data.Length);
                     bw.Write(data);
                 }
-                Client.GetStream().Write(buffer, 0, buffer.Length);
+                Client.GetStream().Write(buffer, 0, buffer.Length);*/
                 Client.GetStream().Flush();
 
             }

@@ -34,7 +34,7 @@ namespace MultiPlayer
             // Get header
             if (rest == 0)
             {
-                if (Client.Available <= 4)
+                if (Client.Available < 4)
                     return null;
                 buffer = new byte[4];
                 Client.GetStream().Read(buffer, 0, 4);
